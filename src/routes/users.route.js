@@ -37,6 +37,7 @@ usersRoute.put('/users/:uuid', async(req, res, next) => {
   try {
     const uuid = req.params.uuid
     const modifiedUser = req.body
+    modifiedUser.uuid = uuid
     res.status(200).send(modifiedUser)
 
     await userRepository.updateUser(modifiedUser)
@@ -49,7 +50,7 @@ usersRoute.put('/users/:uuid', async(req, res, next) => {
 usersRoute.delete('/users/:uuid', async(req, res, next) => {
   try {
     const uuid = req.params.uuid
-    await userRepository.removeUser()
+    await userRepository.removeUser(uuid)
     res.status(200).send('User Removed')
   } catch (error) {
     next(error)
