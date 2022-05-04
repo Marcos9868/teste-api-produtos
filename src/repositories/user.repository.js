@@ -29,7 +29,7 @@ class userRepository {
     const script = `
       INSERT INTO users_list 
       (name, email, password)
-      VALUES ('$1', '$2', crypt('$3', 'my_salt'))
+      VALUES ($1, $2, crypt($3, 'my_salt'))
       RETURNING uuid
     `
 
@@ -49,7 +49,7 @@ class userRepository {
       UPDATE users_list SET
       name = $1,
       email = $2,
-      password = crypt('$3', 'my_salt')
+      password = crypt($3, 'my_salt')
       WHERE uuid = $4
     `
 
